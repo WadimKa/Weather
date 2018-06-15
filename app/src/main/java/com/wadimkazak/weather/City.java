@@ -6,19 +6,22 @@ package com.wadimkazak.weather;
 
 public class City {
     private String name;
-    private String current;
+    private String degree;
+    private String humidity;
+    private String description;
 
-    public String getCurrent() {
-        return current;
+    public City() {
     }
 
-    public void setCurrent(String current) {
 
-        this.current = current;
+    public City(String name, String degree, String humidity, String description) {
+        this.name = name;
+        this.degree = degree;
+        this.humidity = humidity;
+        this.description = description;
     }
 
     public String getName() {
-
         return name;
     }
 
@@ -26,9 +29,27 @@ public class City {
         this.name = name;
     }
 
-    public City(String name, String current) {
+    public String getDegree() {
+        return degree;
+    }
 
-        this.name = name;
-        this.current = current;
+    public void setDegree(String degree) {
+        this.degree = degree;
+    }
+
+    public String getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(String humidity) {
+        this.humidity = humidity;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
