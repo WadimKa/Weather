@@ -31,7 +31,12 @@ public class WeatherParser {
         try {
             Response response = okHttpClient.newCall(request).execute();
             result = response.body().string();
-            return new JSONObject(result);
+            JSONObject jsonObject = new JSONObject(result);
+            if (jsonObject.has("name")) {
+                return jsonObject;
+            } else {
+                return null;
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,24 +49,22 @@ public class WeatherParser {
     }
 
     public static City fillCities(JSONObject object) {
+
         City city = new City();
         try {
 
             JSONObject properties = object.getJSONArray("weather").getJSONObject(0);
             JSONObject global = object.getJSONObject("main");
 
-            city.setName(object.getString("name")+ " - " + object.getJSONObject("sys").getString("country"));
-            Log.i("1dd", city.getName());
+            city.setName(object.getString("name") + " - " + object.getJSONObject("sys").getString("country"));
             city.setDescription(properties.getString("description"));
             Log.i("1dd", city.getDescription());
             city.setHumidity("Humidity - " + global.getString("humidity") + "%");
-            Log.i("1dd", city.getHumidity());
-            city.setDegree(String.format("%.1f", global.getDouble("temp"))+ " ℃");
+            city.setDegree(String.format("%.1f", global.getDouble("temp")) + " ℃");
             return city;
 
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i("1dd", e.toString());
         }
         return null;
 
@@ -70,9 +73,10 @@ public class WeatherParser {
     public static ArrayList<City> getCities(ArrayList<String> citiesNames) {
         ArrayList<City> cities = new ArrayList<>();
         for (int i = 0; i < citiesNames.size(); i++) {
-            cities.add(fillCities(getJSONObj(citiesNames.get(i))));
+            if (getJSONObj(citiesNames.get(i)) != null) {
+                cities.add(fillCities(getJSONObj(citiesNames.get(i))));
+            }
         }
-        Log.i("1dd", cities.get(0).getName());
         return cities;
     }
 }
