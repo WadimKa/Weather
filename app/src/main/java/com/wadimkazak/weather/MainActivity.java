@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sp = getPreferences(MODE_PRIVATE);
-        if(sp.getBoolean(KEY, true)){
+        if (sp.getBoolean(KEY, true)) {
             NamesOfCites namesOfCity = new NamesOfCites("moscow");
             namesOfCity.save();
             NamesOfCites namesOfSecondCity = new NamesOfCites("minsk");
@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean(KEY, false);
             editor.commit();
         }
-
-
 
 
         recyclerView = findViewById(R.id.rv_main);
